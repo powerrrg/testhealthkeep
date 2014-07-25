@@ -61,16 +61,17 @@ Options +FollowSymLinks
 
 RewriteEngine on
 
-RewriteCond %{HTTP_HOST} ^www.healthkeep.org$
-RewriteRule (.*)$ http://www.healthkeep.com/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^www.healthkeep.org$
+#RewriteRule (.*)$ http://www.healthkeep.com/$1 [R=301,L]
 
+#RewriteCond %{HTTPS} off
+#RewriteRule (.*) https://www.healthkeep.com/$1 [R=301,L]
 
+#RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+#RewriteRule ^index\.php$ https://www.healthkeep.com/ [R=301,L]
 
-RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
-RewriteRule ^index\.php$ https://www.healthkeep.com/ [R=301,L]
-
-RewriteCond %{HTTP_HOST}  !^www.healthkeep.com [nocase]
-RewriteRule ^(.*)         https://www.healthkeep.com/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST}  !^www.healthkeep.com [nocase]
+#RewriteRule ^(.*)         https://www.healthkeep.com/$1 [R=301,L]
 
 # REMOVE TRAILING SLASH
 RewriteRule ^(.+)/$  /$1 [R=301,L]
