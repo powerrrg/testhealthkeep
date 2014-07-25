@@ -1,0 +1,1 @@
+UPDATE post SET title_post = SUBSTRING_INDEX(text_post,' ',5) WHERE LENGTH(title_post) = 0;

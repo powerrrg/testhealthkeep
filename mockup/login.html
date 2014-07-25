@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Healthkeep - Main</title>
+    <meta name="viewport" content="initial-scale = 1, user-scalable = no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/jquery-2.1.0.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <div class="logo">
+                    <img src="img/logo.png">
+                    <p>Health<span>Keep</span></p>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li class="search inp-group hidden">
+                    <input type="text"  placeholder="Search"><span><i class="glyphicon glyphicon-search"></i></span>
+                </li>
+            </ul>
+            <div class="alerts hidden">
+                <a href="#" class="mail">
+                    <div class="circle red flex-center"><span>3</span></div>
+                </a>
+                <a href="#" class="user"></a>
+            </div>
+        </nav>
+    </div>
+</header>
+<div class="container page-container login-bg">
+    <div class="row row-login">
+        <form class="login-form form-horizontal">
+            <div class="logo marg-b-15">
+                <img src="img/logo.png">
+                <p>Health<span>Keep</span></p>
+            </div>
+            <input type="text" class="form-control marg-b-15" placeholder="Login">
+            <input type="password" class="form-control marg-b-15" placeholder="Password">
+            <button type="submit" class="btn btn-default btn-login marg-b-15 center-block width-100">LOGIN</button>
+            <button class="btn btn-default btn-register marg-b-15 center-block width-100">Register</button>
+            <a href="#" class="forgot-pass-link">Forgot password?</a>
+        </form>
+    </div>
+</div>
+<footer><span>&copy; 2014 HealthKeep. All rights reserved.</span></footer>
+</body>
+</html>

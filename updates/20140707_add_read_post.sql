@@ -1,0 +1,1 @@
+ALTER TABLE `post` ADD `read_post` INT NOT NULL DEFAULT '0';

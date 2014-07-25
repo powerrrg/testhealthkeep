@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Healthkeep - Main</title>
+    <meta name="viewport" content="initial-scale = 1, user-scalable = no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/jquery-2.1.0.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand">
+                <div class="logo">
+                    <img src="img/logo.png">
+                    <p>Health<span>Keep</span></p>
+                </div>
+            </a>
+        </div>
+        <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <li class="search inp-group">
+                    <input type="text" class="" placeholder="Search"><span><i class="glyphicon glyphicon-search"></i></span>
+                </li>
+            </ul>
+            <div class="alerts">
+                <a href="#" class="mail">
+                    <div class="circle red flex-center"><span>3</span></div>
+                </a>
+                <a href="#" class="user">
+                    <i class="glyphicon glyphicon-chevron-down ch-down"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="container page-container">
+    <div class="row">
+
+        <!-- ***************** MAIN MENU ********************* -->
+        <div class="col-lg-2 col-md-2 col-sm-3 left-col pos-none">
+            <ul class="side-bar hidden-xs">
+                <li class="sb-item">
+                    <a href="#">My profile</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">My Diary</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">Meet Others</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">My Team</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">My Doctors</a>
+                </li>
+                <li class="sb-item iconed">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-envelope"></i>
+                        <div>
+                            <p>Message</p>
+                            <p>My Doctor</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="sb-item iconed">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        <div>
+                            <p>Request</p>
+                            <p>Accountment</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="sb-item iconed">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-edit"></i>
+                        <div>
+                            <p>Request</p>
+                            <p>Rx Refill</p>
+                        </div>
+                    </a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">Conditions</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">Symptoms</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">Medications</a>
+                </li>
+                <li class="sb-item">
+                    <a href="#">Procedures</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ***************** TABS ********************* -->
+        <div class="col-lg-10 col-md-10 col-sm-9 right-col">
+                <ul id="three-tabs" class="nav nav-tabs">
+                    <li class="active"><a href="#community" data-toggle="tab">Community</a></li>
+                    <li class=""><a href="#articles" data-toggle="tab">Articles</a></li>
+                    <li class=""><a href="#tracking" data-toggle="tab">Tracking</a></li>
+                </ul>
+
+                <div id="three-tabsContent" class="tab-content">
+                    <!-- ***************** COMMUNITY ******************** -->
+                    <div class="tab-pane fade active in row" id="community">
+                        <!-- ***************** Filters Panel ********************* -->
+                        <div class="post-content container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="flex-box">
+                                        <ul class="filter">
+                                            <li class="fi-item"><a href="#" class="active">Lastest</a></li>
+                                            <li class="fi-item"><a href="#">Active</a></li>
+                                            <li class="fi-item">Filter Group</li>
+                                            <li class="fi-item">
+                                                <div class="inp-group filter">
+                                                    <input type="text" class=""><span><i class="glyphicon glyphicon-chevron-right"></i></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="btn btn-default btn-discuss"><i class="ico-star">&#42;</i> Start a discussion</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROW -->
+                        <div class="post-content container">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <img src="img/ava1.jpg" class="img-rounded avatar center-block" />
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <h2 class="title-avatar">Hispers</h2>
+                                            <p class="p-avatar">12 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="row marg1">
+                                        <div class="col-lg-6">
+                                            <div class="like">
+                                                <span>3</span>
+                                            </div>
+                                            <span class="like-text">Like</span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="comment">
+                                                <span>63</span>
+                                            </div>
+                                            <span class="comment-text">45 min ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 post-pre-text">
+                                    <div class="left-shadow hidden-sm hidden-xs"></div>
+                                    <h1><a href="#read_community_article" data-toggle="tab">Excepteur sint occaecat cupidatat non proident</a></h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtem por incididunt ut labore et dolore magna aliqua. Ut enim admin...</p>
+                                    <div class="btn btn-default btn-xs post-tags">Tags for post</div>
+                                    <div class="btn btn-default btn-xs post-tags">Tags for post</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROW -->
+                        <div class="post-content container">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <img src="img/ava2.jpg" class="img-rounded avatar center-block" />
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <h2 class="title-avatar">Yukonwhisp</h2>
+                                            <p class="p-avatar">34 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="row marg1">
+                                        <div class="col-lg-6">
+                                            <div class="like">
+                                                <span>6</span>
+                                            </div>
+                                            <span class="like-text">Like</span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="comment">
+                                                <span>10</span>
+                                            </div>
+                                            <span class="comment-text">5 min ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9 post-pre-text">
+                                    <div class="left-shadow hidden-sm hidden-xs"></div>
+                                    <h1><a href="#read_community_article" data-toggle="tab">Excepteur sint occaecat cupidatat non proident</a></h1>
+                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...</p>
+                                    <div class="btn btn-default btn-xs post-tags">Tags for post</div>
+                                    <div class="btn btn-default btn-xs post-tags">Tags for post</div>
+                                    <div class="btn btn-default btn-xs post-tags">Tags for post</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PAGINATION -->
+                        <ul class="paginator">
+                            <li><a href="#">Back</a></li>
+                            <li class="selected"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li class="pag-space"><a href="#">...</a></li>
+                            <li><a href="#">15</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- ***************** ARTICLES ********************* -->
+                    <div class="tab-pane fade row" id="articles">
+                        <!-- ***************** Filters Panel ********************* -->
+                        <div class="article-content container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="flex-box">
+                                        <ul class="filter">
+                                            <li class="fi-item"><a href="#" class="active">Lastest</a></li>
+                                            <li class="fi-item"><a href="#">Active</a></li>
+                                            <li class="fi-item">Filter Group</li>
+                                            <li class="fi-item">
+                                                <div class="inp-group filter">
+                                                    <input type="text" class=""><span><i class="glyphicon glyphicon-chevron-right"></i></span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <div class="btn btn-default btn-discuss"><i class="ico-star">&#42;</i> Start a discussion</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROW -->
+                        <div class="article-content container">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-sxs-12">
+                                <h1><a href="#read_article" data-toggle="tab">Excepteur sint occaecat cupidatat non proident</a></h1>
+                                <h6 class="author-time">Username. 9 hours ago</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtem por incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit excepteur sint occaecat cupidatat non proident occaecat cupidatat non proident, sunt in culpa qui officidese runt proident  mollit ...</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 col-sxs-12">
+                                <img class="article-ico center-block img-responsive img-rounded" src="img/article_img1.jpg">
+                                <div class="like-group">
+                                    <div class="info-placeholder">
+                                        <div class="like">
+                                            <span>45</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-placeholder">
+                                        <div class="comment">
+                                            <span>13</span>
+                                        </div>
+                                        <span class="comment-text">9 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROW -->
+                        <div class="article-content container">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-sxs-12">
+                                <h1><a href="#read_article" data-toggle="tab">Excepteur sint occaecat cupidatat non proident</a></h1>
+                                <h6 class="author-time">Username. 9 hours ago</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtem por incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit excepteur sint occaecat cupidatat non proident occaecat cupidatat non proident, sunt in culpa qui officidese runt proident  mollit ...</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 col-sxs-12">
+                                <img class="article-ico center-block img-responsive img-rounded" src="img/article_img1.jpg">
+                                <div class="like-group">
+                                    <div class="info-placeholder">
+                                        <div class="like">
+                                            <span>45</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-placeholder">
+                                        <div class="comment">
+                                            <span>13</span>
+                                        </div>
+                                        <span class="comment-text">9 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROW -->
+                        <div class="article-content container">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-sxs-12">
+                                <h1><a href="#read_article" data-toggle="tab">Excepteur sint occaecat cupidatat non proident</a></h1>
+                                <h6 class="author-time">Username. 9 hours ago</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtem por incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit excepteur sint occaecat cupidatat non proident occaecat cupidatat non proident, sunt in culpa qui officidese runt proident  mollit ...</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 col-sxs-12">
+                                <img class="article-ico center-block img-responsive img-rounded" src="img/article_img1.jpg">
+                                <div class="like-group">
+                                    <div class="info-placeholder">
+                                        <div class="like">
+                                            <span>45</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-placeholder">
+                                        <div class="comment">
+                                            <span>13</span>
+                                        </div>
+                                        <span class="comment-text">9 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ROW -->
+                        <div class="article-content container">
+                            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8 col-sxs-12">
+                                <h1><a href="#read_article" data-toggle="tab">Excepteur sint occaecat cupidatat non proident</a></h1>
+                                <h6 class="author-time">Username. 9 hours ago</h6>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodtem por incididunt ut labore et dolore magna aliqua. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit excepteur sint occaecat cupidatat non proident occaecat cupidatat non proident, sunt in culpa qui officidese runt proident  mollit ...</p>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 col-sxs-12">
+                                <img class="article-ico center-block img-responsive img-rounded" src="img/article_img1.jpg">
+                                <div class="like-group">
+                                    <div class="info-placeholder">
+                                        <div class="like">
+                                            <span>45</span>
+                                        </div>
+                                    </div>
+                                    <div class="info-placeholder">
+                                        <div class="comment">
+                                            <span>13</span>
+                                        </div>
+                                        <span class="comment-text">9 hours ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PAGINATION -->
+                        <ul class="paginator">
+                            <li><a href="#">Back</a></li>
+                            <li class="selected"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li class="pag-space"><a href="#">...</a></li>
+                            <li><a href="#">15</a></li>
+                            <li><a href="#">Next</a></li>
+                        </ul>
+                </div>
+
+                    <!-- ***************** READ ARTICLE ***************** -->
+                    <div class="tab-pane fade row" id="read_article">
+
+                    <div class="col-lg-12">
+                            <div class="c-breadcrumbs row">
+                                <div class="col-lg-12">
+                                    <a href="#">Home</a>
+                                    <span>/</span>
+                                    <a href="#">Articles</a>
+                                    <span>/</span>
+                                    <a href="#">Excepteur sint occaecat cupidatat non proident</a>
+                                </div>
+                            </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-12">
+                            <h1 class="big-title">Excepteur sint occaecat cupidatat non proident</h1>
+                            <h5>Username, 9 hours ago</h5>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                            </p>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                            </p>
+                        </div>
+                        <div class="col-lg-12 marg3">
+                            <img class="art-img marg2" src="img/article_img2.jpg" />
+                            <img class="art-img" src="img/article_img3.jpg" />
+                        </div>
+
+                        <div class="col-lg-12 marg3">
+                            <div class="row c-blue-line">
+                                <div class="col-lg-6">
+                                    <div class="comment-title">Replies</div>
+                                    <div class="comment marg4">
+                                        <span>63</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="like-title">Hugs</div>
+                                    <div class="like marg4 fr">
+                                        <span>3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 marg3">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <img src="img/ava2.jpg" class="img-rounded fl marg2" />
+                                            <h2 class="title-avatar2">Yukonwhisp</h2>
+                                            <p class="p-avatar2">34 hours ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="like-title">Hugs</div>
+                                    <div class="like marg4 fr">
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row c-blue-line">
+                                <div class="col-lg-12">
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                </div>
+                            </div>
+                            <div class="row marg1 ">
+                                <div class="col-lg-1">
+                                    <img src="img/ava2.jpg" class="img-rounded fl marg2" />
+                                </div>
+                                <div class="col-lg-9">
+                                    <div class="row">
+                                        <input class="inp-text" type="text" placeholder="Type reply" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <a class="btn-send" href="#">SEND</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                    <!-- ***************** READ COMMUNITY ARTICLE ***************** -->
+                    <div class="tab-pane fade row" id="read_community_article">
+
+                        <div class="col-lg-12">
+                            <div class="c-breadcrumbs row">
+                                <div class="col-lg-12">
+                                    <a href="#">Home</a>
+                                    <span>/</span>
+                                    <a href="#">Articles</a>
+                                    <span>/</span>
+                                    <a href="#">Excepteur sint occaecat cupidatat non proident</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <h1 class="big-title">Excepteur sint occaecat cupidatat non proident</h1>
+                            </div>
+                            <div class="col-lg-12 marg-b-15">
+                                <img src="img/ava2.jpg" class="img-rounded fl marg2">
+                                <h2 class="title-avatar2">Yukonwhisp</h2>
+                                <p class="p-avatar2">34 hours ago</p>
+                            </div>
+                            <div class="col-lg-12">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                    Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                </p>
+                                <div class="btn btn-default btn-xs post-tags marg1">Tags for post</div>
+                                <div class="btn btn-default btn-xs post-tags marg1">Tags for post</div>
+                                <div class="btn btn-default btn-xs post-tags marg1">Tags for post</div>
+                            </div>
+
+
+                            <div class="col-lg-12 marg3">
+                                <div class="row c-blue-line">
+                                    <div class="col-lg-6">
+                                        <div class="comment-title">Replies</div>
+                                        <div class="comment marg4">
+                                            <span>63</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="like-title">Hugs</div>
+                                        <div class="like marg4 fr">
+                                            <span>3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 marg3">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <img src="img/ava2.jpg" class="img-rounded fl marg2" />
+                                                <h2 class="title-avatar2">Yukonwhisp</h2>
+                                                <p class="p-avatar2">34 hours ago</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="like-title">Hugs</div>
+                                        <div class="like marg4 fr">
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row c-blue-line">
+                                    <div class="col-lg-12">
+                                        Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                        Lorem ipsum dolor sit amet, consectetur Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officidese runt mollit anim id est laborum. Excepteur sint occaecat...
+                                    </div>
+                                </div>
+                                <div class="row marg1 ">
+                                    <div class="col-lg-1">
+                                        <img src="img/ava2.jpg" class="img-rounded fl marg2" />
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="row">
+                                            <input class="inp-text" type="text" placeholder="Type reply" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <a class="btn-send" href="#">SEND</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ***************** TRACKING ********************* -->
+                    <div class="tab-pane fade row" id="tracking">
+                    <!-- ***************** Filters Panel ********************* -->
+                    <div class="post-content container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="flex-box">
+                                    <ul class="filter">
+                                        <li class="fi-item"><a href="#" class="active">Lastest</a></li>
+                                        <li class="fi-item"><a href="#">Active</a></li>
+                                        <li class="fi-item">Filter Group</li>
+                                        <li class="fi-item">
+                                            <div class="inp-group filter">
+                                                <input type="text" class=""><span><i class="glyphicon glyphicon-chevron-right"></i></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="btn btn-default btn-discuss"><i class="ico-star">&#42;</i> Start a discussion</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="track-content">
+                        <div class="col-md-3 flex-vertical">
+                            <div class="col-40">
+                                <img src="img/ava1.jpg" class="img-rounded avatar center-block">
+                                <div class="info-placeholder">
+                                    <div class="like">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="like-text">Like</span>
+                                </div>
+                            </div>
+                            <div class="col-60">
+                                <h2>Hispers</h2>
+                                <p>12 hours ago</p>
+                                <div class="info-placeholder">
+                                    <div class="comment">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="comment-text">45 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 post-pre-text">
+                            <div class="left-shadow hidden-sm hidden-xs"></div>
+                            <table class="track-table">
+                                <thead>
+                                <tr>
+                                    <th><p class="head-text ">Weight</p><p class="head-description hidden-xs">(kg)</p></th>
+                                    <th><p class="visible-xs">B/p</p><p class="head-text hidden-xs">Blood pressure</p><p class="head-description hidden-xs">(systolic/diastolic)</p></th>
+                                    <th><p class="visible-xs">Sugar</p><p class="head-text hidden-xs">Blood</p><p class="head-text hidden-xs">sugar</p></th>
+                                    <th><p class="head-text ">load</p><p class="head-description hidden-xs">(miles walked/day)</p></th>
+                                    <th><p class="visible-xs">Calories</p><p class="head-text hidden-xs">Food intake</p><p class="head-description hidden-xs">(calories conumerd/day)</p></th>
+                                    <th><p class="visible-xs">Medication</p><p class="head-text hidden-xs">Take</p><p class="head-text hidden-xs">medication</p></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>85</td>
+                                    <td>120/90</td>
+                                    <td>0.5</td>
+                                    <td>3.5</td>
+                                    <td>1250</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>95</td>
+                                    <td>110/70</td>
+                                    <td>0.65</td>
+                                    <td>2.5</td>
+                                    <td>1550</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>75</td>
+                                    <td>130/90</td>
+                                    <td>0.65</td>
+                                    <td>1.5</td>
+                                    <td>1965</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="track-content">
+                        <div class="col-md-3 flex-vertical">
+                            <div class="col-40">
+                                <img src="img/ava1.jpg" class="img-rounded avatar center-block">
+                                <div class="info-placeholder">
+                                    <div class="like">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="like-text">Like</span>
+                                </div>
+                            </div>
+                            <div class="col-60">
+                                <h2>Hispers</h2>
+                                <p>12 hours ago</p>
+                                <div class="info-placeholder">
+                                    <div class="comment">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="comment-text">45 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 post-pre-text">
+                            <div class="left-shadow hidden-sm hidden-xs"></div>
+                            <table class="track-table">
+                                <thead>
+                                <tr>
+                                    <th><p class="head-text ">Weight</p><p class="head-description hidden-xs">(kg)</p></th>
+                                    <th><p class="visible-xs">Pressure</p><p class="head-text hidden-xs">Blood pressure</p><p class="head-description hidden-xs">(systolic/diastolic)</p></th>
+                                    <th><p class="visible-xs">Sugar</p><p class="head-text hidden-xs">Blood</p><p class="head-text hidden-xs">sugar</p></th>
+                                    <th><p class="head-text ">Activities</p><p class="head-description hidden-xs">(miles walked/day)</p></th>
+                                    <th><p class="visible-xs">Calories</p><p class="head-text hidden-xs">Food intake</p><p class="head-description hidden-xs">(calories conumerd/day)</p></th>
+                                    <th><p class="visible-xs">Medication</p><p class="head-text hidden-xs">Take</p><p class="head-text hidden-xs">medication</p></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>85</td>
+                                    <td>120/90</td>
+                                    <td>0.5</td>
+                                    <td>3.5</td>
+                                    <td>1250</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>95</td>
+                                    <td>110/70</td>
+                                    <td>0.65</td>
+                                    <td>2.5</td>
+                                    <td>1550</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>75</td>
+                                    <td>130/90</td>
+                                    <td>0.65</td>
+                                    <td>1.5</td>
+                                    <td>1965</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="track-content">
+                        <div class="col-md-3 flex-vertical">
+                            <div class="col-40">
+                                <img src="img/ava1.jpg" class="img-rounded avatar center-block">
+                                <div class="info-placeholder">
+                                    <div class="like">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="like-text">Like</span>
+                                </div>
+                            </div>
+                            <div class="col-60">
+                                <h2>Hispers</h2>
+                                <p>12 hours ago</p>
+                                <div class="info-placeholder">
+                                    <div class="comment">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="comment-text">45 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 post-pre-text">
+                            <div class="left-shadow hidden-sm hidden-xs"></div>
+                            <table class="track-table">
+                                <thead>
+                                <tr>
+                                    <th><p class="head-text ">Weight</p><p class="head-description hidden-xs">(kg)</p></th>
+                                    <th><p class="visible-xs">Pressure</p><p class="head-text hidden-xs">Blood pressure</p><p class="head-description hidden-xs">(systolic/diastolic)</p></th>
+                                    <th><p class="visible-xs">Sugar</p><p class="head-text hidden-xs">Blood</p><p class="head-text hidden-xs">sugar</p></th>
+                                    <th><p class="head-text ">Activities</p><p class="head-description hidden-xs">(miles walked/day)</p></th>
+                                    <th><p class="visible-xs">Calories</p><p class="head-text hidden-xs">Food intake</p><p class="head-description hidden-xs">(calories conumerd/day)</p></th>
+                                    <th><p class="visible-xs">Medication</p><p class="head-text hidden-xs">Take</p><p class="head-text hidden-xs">medication</p></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>85</td>
+                                    <td>120/90</td>
+                                    <td>0.5</td>
+                                    <td>3.5</td>
+                                    <td>1250</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>95</td>
+                                    <td>110/70</td>
+                                    <td>0.65</td>
+                                    <td>2.5</td>
+                                    <td>1550</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>75</td>
+                                    <td>130/90</td>
+                                    <td>0.65</td>
+                                    <td>1.5</td>
+                                    <td>1965</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="track-content">
+                        <div class="col-md-3 flex-vertical">
+                            <div class="col-40">
+                                <img src="img/ava1.jpg" class="img-rounded avatar center-block">
+                                <div class="info-placeholder">
+                                    <div class="like">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="like-text">Like</span>
+                                </div>
+                            </div>
+                            <div class="col-60">
+                                <h2>Hispers</h2>
+                                <p>12 hours ago</p>
+                                <div class="info-placeholder">
+                                    <div class="comment">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="comment-text">45 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 post-pre-text">
+                            <div class="left-shadow hidden-sm hidden-xs"></div>
+                            <table class="track-table">
+                                <thead>
+                                <tr>
+                                    <th><p class="head-text ">Weight</p><p class="head-description hidden-xs">(kg)</p></th>
+                                    <th><p class="visible-xs">Pressure</p><p class="head-text hidden-xs">Blood pressure</p><p class="head-description hidden-xs">(systolic/diastolic)</p></th>
+                                    <th><p class="visible-xs">Sugar</p><p class="head-text hidden-xs">Blood</p><p class="head-text hidden-xs">sugar</p></th>
+                                    <th><p class="head-text ">Activities</p><p class="head-description hidden-xs">(miles walked/day)</p></th>
+                                    <th><p class="visible-xs">Calories</p><p class="head-text hidden-xs">Food intake</p><p class="head-description hidden-xs">(calories conumerd/day)</p></th>
+                                    <th><p class="visible-xs">Medication</p><p class="head-text hidden-xs">Take</p><p class="head-text hidden-xs">medication</p></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>85</td>
+                                    <td>120/90</td>
+                                    <td>0.5</td>
+                                    <td>3.5</td>
+                                    <td>1250</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>95</td>
+                                    <td>110/70</td>
+                                    <td>0.65</td>
+                                    <td>2.5</td>
+                                    <td>1550</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>75</td>
+                                    <td>130/90</td>
+                                    <td>0.65</td>
+                                    <td>1.5</td>
+                                    <td>1965</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="track-content">
+                        <div class="col-md-3 flex-vertical">
+                            <div class="col-40">
+                                <img src="img/ava1.jpg" class="img-rounded avatar center-block">
+                                <div class="info-placeholder">
+                                    <div class="like">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="like-text">Like</span>
+                                </div>
+                            </div>
+                            <div class="col-60">
+                                <h2>Hispers</h2>
+                                <p>12 hours ago</p>
+                                <div class="info-placeholder">
+                                    <div class="comment">
+                                        <span>3</span>
+                                    </div>
+                                    <span class="comment-text">45 min ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9 post-pre-text">
+                            <div class="left-shadow hidden-sm hidden-xs"></div>
+                            <table class="track-table">
+                                <thead>
+                                <tr>
+                                    <th><p class="head-text ">Weight</p><p class="head-description hidden-xs">(kg)</p></th>
+                                    <th><p class="visible-xs">Pressure</p><p class="head-text hidden-xs">Blood pressure</p><p class="head-description hidden-xs">(systolic/diastolic)</p></th>
+                                    <th><p class="visible-xs">Sugar</p><p class="head-text hidden-xs">Blood</p><p class="head-text hidden-xs">sugar</p></th>
+                                    <th><p class="head-text ">Activities</p><p class="head-description hidden-xs">(miles walked/day)</p></th>
+                                    <th><p class="visible-xs">Calories</p><p class="head-text hidden-xs">Food intake</p><p class="head-description hidden-xs">(calories conumerd/day)</p></th>
+                                    <th><p class="visible-xs">Medication</p><p class="head-text hidden-xs">Take</p><p class="head-text hidden-xs">medication</p></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>85</td>
+                                    <td>120/90</td>
+                                    <td>0.5</td>
+                                    <td>3.5</td>
+                                    <td>1250</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>95</td>
+                                    <td>110/70</td>
+                                    <td>0.65</td>
+                                    <td>2.5</td>
+                                    <td>1550</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                <tr>
+                                    <td>75</td>
+                                    <td>130/90</td>
+                                    <td>0.65</td>
+                                    <td>1.5</td>
+                                    <td>1965</td>
+                                    <td>Take medication</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <ul class="paginator">
+                        <li><a href="#">Back</a></li>
+                        <li class="selected"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li class="pag-space"><a href="#">...</a></li>
+                        <li><a href="#">15</a></li>
+                        <li><a href="#">Next</a></li>
+                    </ul>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+</div>
+<footer><span>&copy; 2014 HealthKeep. All rights reserved.</span></footer>
+</body>
+</html>
