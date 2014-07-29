@@ -97,7 +97,7 @@ class postController extends Mobile_api {
         $comment_id = $this->getReq2Param('comment_id');
         $comment = $this->getParam('comment');
         $video_web_url = $this->getParam('video_url_pc');
-        $is_delete_img = $this->getParam('delete_img_comment');
+        $is_delete_img = $this->getParam('delete_img_comment'); /**/
 
         $this->answer = $this->_post->updateCommentModel($comment_id, $comment, 'image', $video_web_url,  $is_delete_img);
     }
