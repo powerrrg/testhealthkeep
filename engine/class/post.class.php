@@ -834,7 +834,7 @@ class Post extends Base {
         return $this->config_Class->query($sql,array(":id"=>$id));
     }
 
-    public function updateCommentModel($comment_id, $text = null, $img = "", $video_web_url = null){
+    public function updateCommentModel($comment_id, $text = null, $img = "", $video_web_url = null, $is_delete_img = 0){
         $image="";
         if($img!="" && isset($_FILES[$img])){
             $imgPath=PUBLIC_HTML_PATH."img/post/";
@@ -861,6 +861,11 @@ class Post extends Base {
         if($image!=""){
             $sub_sql[2] = "image_pc=:image_comment";
             $params[":image_comment"] = $image;
+        }
+
+        if($is_delete_img == 1){
+            $sub_sql[2] = "image_pc=:image_comment";
+            $params[":image_comment"] = "";
         }
 
         if (isset($params)) {
@@ -1467,7 +1472,7 @@ class Post extends Base {
 
     }
 
-    public function updatePostModel($post_id, $text = null, $title = null, $img = "") {
+    public function updatePostModel($post_id, $text = null, $title = null, $img = "", $is_delete_img = 0) {
         $image="";
         if($img!="" && isset($_FILES[$img])){
             $imgPath=PUBLIC_HTML_PATH."img/post/";
@@ -1496,6 +1501,10 @@ class Post extends Base {
         if($image!=""){
             $sub_sql[2] = "image_post=:image_post";
             $params[":image_post"] = $image;
+        }
+        if ($is_delete_img == 1) {
+            $sub_sql[2] = "image_post=:image_post";
+            $params[":image_post"] = "";
         }
 
         if (isset($params)) {

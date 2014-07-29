@@ -74,8 +74,8 @@ class postController extends Mobile_api {
         $post_id = $this->getReq2Param('post_id');
         $title = $this->getParam('title');
         $content = $this->getParam('content');
-
-        $this->answer = $this->_post->updatePostModel($post_id, $content, $title, 'image');
+        $is_delete_img = $this->getParam('delete_img_post');
+        $this->answer = $this->_post->updatePostModel($post_id, $content, $title, 'image', $is_delete_img);
     }
     public function setReadComments() {
         $post_id = $this->getReq2Param('post_id');
@@ -97,8 +97,9 @@ class postController extends Mobile_api {
         $comment_id = $this->getReq2Param('comment_id');
         $comment = $this->getParam('comment');
         $video_web_url = $this->getParam('video_url_pc');
+        $is_delete_img = $this->getParam('delete_img_comment');
 
-        $this->answer = $this->_post->updateCommentModel($comment_id, $comment, 'image', $video_web_url);
+        $this->answer = $this->_post->updateCommentModel($comment_id, $comment, 'image', $video_web_url,  $is_delete_img);
     }
     public function setBlockConversation(){
         $to_user_id = $this->getReqParam('to_user_id');
