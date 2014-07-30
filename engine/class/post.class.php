@@ -913,27 +913,38 @@ class Post extends Base {
 
     public function setBlockConversationModel($to_user_id){
         // check exist conversation
-        $sql = "select id_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2)";
+        $sql = "select * from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2)";
         $conv = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
+        $sub_sql = "";
         if(isset($conv[0]["id_conv"])) {
+            if($conv[0]["user_id1_conv"] == USER_ID) {
+                $sub_sql = "blocked_u1_conv = 1";
+            } else {
+                $sub_sql = "blocked_u2_conv = 1";
+            }
             // if exist conversation - update column status -> block
-            $sql = "update conversations set status_conv = 'block'  where id_conv=:id_conv";
+            $sql = "update conversations set status_conv = 'block', ".$sub_sql."  where id_conv=:id_conv";
             $result = $this->config_Class->query($sql, array(":id_conv"=>$conv[0]["id_conv"]));
         } else {
             // if not exist conversation - create new conversation
-            $sql = "insert into conversations (user_id1_conv, user_id2_conv, status_conv) VALUES (:user_id, :to_user_id, :status)";
-            $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":status"=>"block"));
+            $sql = "insert into conversations (user_id1_conv, user_id2_conv, status_conv, blocked_u1_conv) VALUES (:user_id, :to_user_id, :status, :blocked_u1_conv)";
+            $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":status"=>"block", ":blocked_u1_conv"=>"1"));
         }
         return array("result"=>$result);
     }
 
     public function setUnBlockConversationModel($to_user_id){
         // check exist conversation
-        $sql = "select id_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2)";
+        $sql = "select * from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2)";
         $conv = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
         if(isset($conv[0]["id_conv"])) {
+            if($conv[0]["user_id1_conv"] == USER_ID) {
+                $sub_sql = "blocked_u1_conv = 0";
+            } else {
+                $sub_sql = "blocked_u2_conv = 0";
+            }
             // if exist conversation - update column status -> block
-            $sql = "update conversations set status_conv = ''  where id_conv=:id_conv";
+            $sql = "update conversations set status_conv = '', ".$sub_sql."  where id_conv=:id_conv";
             $result = $this->config_Class->query($sql, array(":id_conv"=>$conv[0]["id_conv"]));
         }
         return array("result"=>$result);
@@ -1661,7 +1672,7 @@ class Post extends Base {
 
     }
     public function isBlockConversation($to_user_id) {
-        $sql = "select id_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and status_conv = 'block') or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2 and status_conv = 'block')";
+        $sql = "select * from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and status_conv = 'block') or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2 and status_conv = 'block')";
         return $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
     }
 
@@ -1676,8 +1687,14 @@ class Post extends Base {
                 $conv = $this->isBlockConversation($conv_to_user_id);
                 error_reporting(E_ALL ^ E_WARNING);
                 $conversations[$key]["blocked"] = array();
+                $conversations[$key]["blockedByMyself"] = array();
                 if(isset($conv[0]["id_conv"])) {
                     $conversations[$key]["blocked"] = "true";
+                    if ((($conv[0]["user_id1_conv"] == USER_ID) && ($conv[0]["blocked_u1_conv"] == 1)) or (($conv[0]["user_id2_conv"] == USER_ID) && ($conv[0]["blocked_u2_conv"] == 1)) ) {
+                        $conversations[$key]["blockedByMyself"] = 1;
+                    } else {
+                        $conversations[$key]["blockedByMyself"] = 0;
+                    }
                 } else {
                     $conversations[$key]["blocked"] = "false";
                 }

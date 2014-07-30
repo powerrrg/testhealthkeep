@@ -1,0 +1,2 @@
+﻿ALTER TABLE  `conversations` ADD  `blocked_u1_conv` BOOLEAN NOT NULL DEFAULT FALSE ,
+ADD  `blocked_u2_conv` BOOLEAN NOT NULL DEFAULT FALSE
