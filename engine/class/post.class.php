@@ -1687,13 +1687,12 @@ class Post extends Base {
                 $conv = $this->isBlockConversation($conv_to_user_id);
                 error_reporting(E_ALL ^ E_WARNING);
                 $conversations[$key]["blocked"] = array();
-                $conversations[$key]["blockedByMyself"] = array();
                 if(isset($conv[0]["id_conv"])) {
                     $conversations[$key]["blocked"] = "true";
                     if ((($conv[0]["user_id1_conv"] == USER_ID) && ($conv[0]["blocked_u1_conv"] == 1)) or (($conv[0]["user_id2_conv"] == USER_ID) && ($conv[0]["blocked_u2_conv"] == 1)) ) {
-                        $conversations[$key]["blockedByMyself"] = 1;
+                        $conversations[$key]["blockedByMyself"] = true;
                     } else {
-                        $conversations[$key]["blockedByMyself"] = 0;
+                        $conversations[$key]["blockedByMyself"] = false;
                     }
                 } else {
                     $conversations[$key]["blocked"] = "false";
