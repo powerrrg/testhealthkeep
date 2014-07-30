@@ -927,6 +927,18 @@ class Post extends Base {
         return array("result"=>$result);
     }
 
+    public function setUnBlockConversationModel($to_user_id){
+        // check exist conversation
+        $sql = "select id_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2)";
+        $conv = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
+        if(isset($conv[0]["id_conv"])) {
+            // if exist conversation - update column status -> block
+            $sql = "update conversations set status_conv = ''  where id_conv=:id_conv";
+            $result = $this->config_Class->query($sql, array(":id_conv"=>$conv[0]["id_conv"]));
+        }
+        return array("result"=>$result);
+    }
+
     public function addComment($id, $text, $img = "", $video_web_url = ""){
         $text=$this->config_Class->escapeOddChars($text);
         $text=$this->config_Class->processPostText($text);

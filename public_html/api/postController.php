@@ -105,6 +105,10 @@ class postController extends Mobile_api {
         $to_user_id = $this->getReqParam('to_user_id');
         $this->answer = $this->_post->setBlockConversationModel($to_user_id);
     }
+    public function setUnBlockConversation(){
+        $to_user_id = $this->getReqParam('to_user_id');
+        $this->answer = $this->_post->setUnBlockConversationModel($to_user_id);
+    }
     public function postLike() {
         $this->answer = $this->_post->postLike($this->getReqParam('post_id'), $this->_default_vote);
         $ownerPost = $this->_post->getPostOwner($this->getReqParam('post_id'));
