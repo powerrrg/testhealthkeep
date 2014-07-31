@@ -124,7 +124,16 @@ class postController extends Mobile_api {
             $this->_notification->pushNotification($ownerComment[0]["comment_owner_id"], 4, false, false, false, array('id' => $this->getReqParam('comment_id')) );
         }
     }
-    
+
+    public function deletePost() {
+        $post_id = $this->getReqParam('post_id');
+        $this->answer = $this->_post->deletePostModel($post_id);
+    }
+
+    public function deleteComment() {
+        $comment_id = $this->getReqParam('comment_id');
+        $this->answer = $this->_post->deleteCommentModel($comment_id);
+    }
     private function afterPostFind() {
         if (count($this->answer) > 0) {
             foreach ($this->answer as $key=>$post) {

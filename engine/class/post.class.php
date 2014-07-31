@@ -1064,6 +1064,27 @@ class Post extends Base {
         return $final_result;
     }
 
+    public function deletePostModel($post_id) {
+        $sql="delete from post where id_post=:post_id";
+        $delete_res= $this->config_Class->query($sql,array("post_id"=>$post_id));
+
+        if(!$delete_res){
+            return array("result" => false);
+        } else {
+            return array("result" => $delete_res);
+        }
+    }
+
+    public function deleteCommentModel($comment_id) {
+        $sql="delete from post_comment where id_pc=:comment_id";
+        $delete_res= $this->config_Class->query($sql,array("comment_id"=>$comment_id));
+
+        if(!$delete_res){
+            return array("result" => false);
+        } else {
+            return array("result" => $delete_res);
+        }
+    }
      private function removeCommentVote($id){
 
         $res=$this->getCommentById($id);
