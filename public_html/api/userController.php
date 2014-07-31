@@ -98,6 +98,28 @@ class userController extends Mobile_api {
             $this->getProfileClass()->newAvatar($this->answer['user_id'], 'man1.jpg');
         }
     }
+
+    public function socialIsRegistred() {
+        $social_id = $this->getReqParam('social_id', false);
+        $social_type = $this->getReqParam('social_type');
+        if (strlen($social_id) < 5) {
+            $this->answer['result'] = Mobile_api::RESPONSE_STATUS_ERROR;
+            $this->answer['error'] = 'Wrong social_id parameter value.';
+        } elseif (!$this->validateSocialType($social_type)) {
+            $this->answer['result'] = Mobile_api::RESPONSE_STATUS_ERROR;
+            $this->answer['error'] = 'Wrong social_type parameter value.';
+        } else {
+            $field_name = $this->_social_types[$social_type];
+            $res = $this->_user->getBySocial($field_name, $social_id);
+            if ($res['result']) {
+                $this->answer['result'] = Mobile_api::RESPONSE_STATUS_SUCCESS;
+                $this->answer['is_registered'] = 'true';
+            } else {
+                $this->answer['result'] = Mobile_api::RESPONSE_STATUS_SUCCESS;
+                $this->answer['is_registered'] = 'false';
+            }
+        }
+    }
     
     private function validateSocialType($type) {
         $type_keys = array_keys($this->_social_types);
