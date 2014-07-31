@@ -395,7 +395,7 @@ class User extends Base {
 
         $sql = 'select * from user where email_user=:email and password_user=:password limit 1';
         $res = $this->config_Class->query($sql, array(':email'=>$email, ':password'=>$password));
-        if ($token != NULL ) {
+        if ($token != NULL and !$res['result']) {
             $this->getProfileClass()->newDeviceToken($token, $res[0]['id_user']);
         }
         if (!$res['result']) {
