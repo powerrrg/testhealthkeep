@@ -1,1 +1,0 @@
-﻿UPDATE `profile` SET `name_profile` = `username_profile` WHERE `name_profile` = ''

@@ -1074,6 +1074,43 @@ class Post extends Base {
             return array("result" => $delete_res);
         }
     }
+    public function isInoppriatePost($post_id){
+        $sql="select * from inoppriate where post_id_inop=:post_id and user_id_inop=:user_id";
+        $inopr = $this->config_Class->query($sql,array(":post_id"=>$post_id, ":user_id"=>USER_ID));
+        if(!isset($inopr[0]['id_inop'])) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public function isInoppriateComment($comment_id){
+        $sql="select * from inoppriate where comment_id_inop=:comment_id and user_id_inop=:user_id";
+        $inopr = $this->config_Class->query($sql,array(":comment_id"=>$comment_id, ":user_id"=>USER_ID));
+        if(!isset($inopr[0]['id_inop'])) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    public function inappropriatePostModel($post_id){
+        $sql="select * from inoppriate where post_id_inop=:post_id and user_id_inop=:user_id";
+        $inopr = $this->config_Class->query($sql,array(":post_id"=>$post_id, ":user_id"=>USER_ID));
+        if(!isset($inopr[0]['id_inop'])) {
+            $sql="insert into inoppriate (post_id_inop, user_id_inop) VALUES (:post_id, :user_id)";
+            $this->config_Class->query($sql,array(":post_id"=>$post_id, ":user_id"=>USER_ID));
+        }
+        return array("result"=>true);
+    }
+
+    public function inappropriateCommentModel($comment_id){
+        $sql="select * from inoppriate where comment_id_inop=:comment_id and user_id_inop=:user_id";
+        $inopr = $this->config_Class->query($sql,array(":comment_id"=>$comment_id, ":user_id"=>USER_ID));
+        if(!isset($inopr[0]['id_inop'])) {
+            $sql="insert into inoppriate (comment_id_inop, user_id_inop) VALUES (:comment_id, :user_id)";
+            $this->config_Class->query($sql,array(":comment_id"=>$comment_id, ":user_id"=>USER_ID));
+        }
+        return array("result"=>true);
+    }
 
     public function deleteCommentModel($comment_id) {
         $sql="delete from post_comment where id_pc=:comment_id";
@@ -1606,7 +1643,7 @@ class Post extends Base {
     public function hideConversationModel($to_user_id) {
         $sql = "select user_id1_conv, user_id2_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2)";
         $conv = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-        // Check current user id1 or id in conversation
+        // Check current user id1 or id2 in conversation
         if (isset($conv[0]["user_id1_conv"])) {
             // if conversation exist
             if ($conv[0]["user_id1_conv"] == USER_ID) {
