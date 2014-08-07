@@ -410,18 +410,31 @@ class Profile extends Base{
     }
 
      public function getById($id){
-
-        $sql="select * from profile where id_profile=:id limit 1";
+        $sql = 'SELECT
+            p.*
+          , u.last_login_user
+        FROM
+            profile AS p INNER JOIN user AS u ON (p.id_profile = u.id_user)
+        WHERE
+            id_profile=:id
+        LIMIT 1';
         return $this->config_Class->query($sql,array(":id"=>$id));
-
     }
 
     public function getByIdWithTopics($id) { //API
         $profile = $this->getById($id);
 
         if ($profile['result']) {
-            $sql = 'select topic.* from topic_follow, topic
-            where id_topic_tf=id_topic and id_profile_tf=:user order by gnews_topic desc';
+            $sql = 'select
+                topic.*
+            from
+                topic_follow
+              , topic
+            where
+                id_topic_tf=id_topic
+                and id_profile_tf=:user
+            order by
+                gnews_topic desc';
             $profile['topic'] = $this->config_Class->query($sql, array(':user'=>$id));
         }
         return $profile;
