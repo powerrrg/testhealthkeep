@@ -1515,7 +1515,7 @@ class Post extends Base {
         }
     }
 
-    public function addNewNoTopic($text, $title, $img = "") {
+    public function addNewNoTopic($text, $title = '', $img = '') {
         $text = $this->config_Class->escapeOddChars($text);
         $text = $this->config_Class->processPostText($text);
         $title = $this->config_Class->escapeOddChars($title);
