@@ -2,8 +2,8 @@
 require_once('../engine/starter/config.php');
 
 if(USER_ID!=0){
-	header("Location:".WEB_URL."feed");
-	exit();
+    header("Location:".WEB_URL."feed");
+    exit();
 }
 
 $pageTitle="HealthKeep - Social Health Network";
