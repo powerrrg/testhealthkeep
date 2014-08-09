@@ -275,10 +275,10 @@ class Post extends Base {
         return $this->config_Class->query($sql,array(":id"=>$id,":ids"=>$ids));
     }
 
-     public function addNewsPostHKSource($title,$description,$id_profile,$video=''){
-        $title=$this->config_Class->escapeOddChars($title);
-        $description=$this->config_Class->escapeOddChars($description);
-        $text=$this->config_Class->processPostText($description);
+     public function addNewsPostHKSource($title, $description, $id_profile, $video=''){
+        $title = $this->config_Class->escapeOddChars($title);
+        $description = $this->config_Class->escapeOddChars($description);
+        $text = $this->config_Class->processPostText($description);
 
         $sql="insert into post (text_post,id_profile_post,title_post,video_post,date_post)
         VALUES (:text,:user,:title,:video,now())";
@@ -304,7 +304,7 @@ class Post extends Base {
 
     }
 
-    public function addNewsPost($title,$link,$description,$pubDate,$id_profile,$video='',$dontDelete=0){
+    public function addNewsPost($title, $link, $description, $pubDate, $id_profile, $video='', $dontDelete = 0) {
         $title=$this->config_Class->escapeOddChars($title);
         $description=$this->config_Class->escapeOddChars($description);
         $text=$this->config_Class->processPostText($description);
@@ -338,7 +338,7 @@ class Post extends Base {
 
     }
 
-    public function addNewsPostAuto($title,$link,$description,$pubDate,$id_profile,$img,$dontDelete=0){
+    public function addNewsPostAuto($title, $link, $description, $pubDate, $id_profile, $img, $dontDelete=0) {
         $title=$this->config_Class->escapeOddChars($title);
         $description=$this->config_Class->escapeOddChars($description);
         $text=$this->config_Class->processPostText($description);
@@ -802,8 +802,7 @@ class Post extends Base {
         }
     }
 
-    public function addTopic($id, $post){
-
+    public function addTopic($id, $post) {
         $resPost=$this->getById($post);
         if(!$resPost["result"]){
             return false;
@@ -1512,9 +1511,24 @@ class Post extends Base {
         }
     }
 
+    public function createTitle($text) {
+        $text = $this->config_Class->escapeOddChars($text);
+        $text = $this->config_Class->processPostText($text);
+        $words = explode(' ', $text);
+        if (count($words) > 5) {
+            $title = $words[0].' '.$words[1].' '.$words[2].' '.$words[3].' '.$words[4];
+        } else {
+            $title = $text;
+        }
+        return $title;
+    }
+
     public function addNewNoTopic($text, $title = '', $img = '') {
         $text = $this->config_Class->escapeOddChars($text);
         $text = $this->config_Class->processPostText($text);
+        if (empty($title)) {
+            $title = $this->createTitle($text);
+        }
         $title = $this->config_Class->escapeOddChars($title);
         $title = $this->config_Class->processPostText($title);
 
@@ -1622,6 +1636,7 @@ class Post extends Base {
         }
 
     }
+
     public function showConversationModel($to_user_id) {
         $sql = "update conversations set hide_messages_u1 = 0, hide_messages_u2 = 0  where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2)";
         $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
@@ -1632,11 +1647,13 @@ class Post extends Base {
         $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
         return $result["result"];
     }
+
     public function isHideConversationModel($to_user_id) {
         $sql = "select user_id1_conv, user_id2_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and hide_messages_u1 = 1) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2 and hide_messages_u2 = 1)";
         $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
         return $result["result"];
     }
+
     public function hideConversationModel($to_user_id) {
         $sql = "select user_id1_conv, user_id2_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2)";
         $conv = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
@@ -1661,9 +1678,13 @@ class Post extends Base {
         }
     }
 
-    public function addNewV2Post($text="",$img="",$forceTopic=0,$asMessage=0){
+    public function addNewV2Post($text = '', $img = '', $forceTopic = 0, $asMessage = 0) {
         $text=$this->config_Class->escapeOddChars($text);
         $text=$this->config_Class->processPostText($text);
+
+        $title = $this->createTitle($text);
+        $title = $this->config_Class->escapeOddChars($title);
+        $title = $this->config_Class->processPostText($title);
 
         if($asMessage!=0 && $asMessage!=USER_ID){
             $sql="select * from profile where id_profile=:id limit 1";
@@ -1676,22 +1697,18 @@ class Post extends Base {
         }
 
         if($asMessage!=0 && isset($resProfile["result"])){
-            $sql="insert into post (text_post,id_profile_post,date_post,share_with_post) VALUES (:text,:user,now(),:id)";
-            $res = $this->config_Class->query($sql,array(":user"=>USER_ID,":text"=>$text,":id"=>$resProfile[0]["id_profile"]));
+            $sql = 'insert into post (text_post,id_profile_post,date_post,title_post,share_with_post) VALUES (:text,:user,now(),:title,:id)';
+            $res = $this->config_Class->query($sql,array(":user"=>USER_ID,":text"=>$text,":id"=>$resProfile[0]["id_profile"],':title' => $title));
          }else{
-            $sql="insert into post (text_post,id_profile_post,date_post) VALUES (:text,:user,now())";
-            $res = $this->config_Class->query($sql,array(":user"=>USER_ID,":text"=>$text));
+            $sql = 'insert into post (text_post,id_profile_post,date_post,title_post) VALUES (:text,:user,now(),:title)';
+            $res = $this->config_Class->query($sql,array(":user"=>USER_ID,":text"=>$text,':title' => $title));
          }
 
-
-
-        if($res){
-
+        if ($res) {
             $sql="select * from post where id_profile_post=:user order by id_post desc limit 1";
             $res = $this->config_Class->query($sql,array(":user"=>USER_ID));
 
-            if($res["result"]){
-
+            if ($res["result"]) {
                 if($asMessage!=0 && isset($resProfile["result"])){
                     $link=WEB_URL."post/".$res[0]["id_post"];
                     require_once(ENGINE_PATH.'class/message.class.php');
@@ -1717,15 +1734,14 @@ class Post extends Base {
                     $res[0]["image_post"] = $image;
                 }
                 return $res;
-            }else{
+            } else {
                 return false;
             }
-
-        }else{
+        } else {
             return false;
         }
-
     }
+
     public function isBlockConversation($to_user_id) {
         $sql = "select * from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and status_conv = 'block') or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2 and status_conv = 'block')";
         return $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
