@@ -1086,42 +1086,25 @@ class Post extends Base {
             return array("result" => $delete_res);
         }
     }
-    public function isInoppriatePost($post_id){
-        $sql="select * from inoppriate where post_id_inop=:post_id and user_id_inop=:user_id";
-        $inopr = $this->config_Class->query($sql,array(":post_id"=>$post_id, ":user_id"=>USER_ID));
-        if(!isset($inopr[0]['id_inop'])) {
+
+    public function isInappropriatePost($post_id) {
+        $sql = 'select * from post_complaint where post_id=:post_id and user_id=:user_id';
+        $inappropriate = $this->config_Class->query($sql, array(':post_id' =>$post_id, ':user_id' => USER_ID));
+        if (!isset($inappropriate[0]['id'])) {
             return false;
         } else {
             return true;
         }
-    }
-    public function isInoppriateComment($comment_id){
-        $sql="select * from inoppriate where comment_id_inop=:comment_id and user_id_inop=:user_id";
-        $inopr = $this->config_Class->query($sql,array(":comment_id"=>$comment_id, ":user_id"=>USER_ID));
-        if(!isset($inopr[0]['id_inop'])) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    public function inappropriatePostModel($post_id){
-        $sql="select * from inoppriate where post_id_inop=:post_id and user_id_inop=:user_id";
-        $inopr = $this->config_Class->query($sql,array(":post_id"=>$post_id, ":user_id"=>USER_ID));
-        if(!isset($inopr[0]['id_inop'])) {
-            $sql="insert into inoppriate (post_id_inop, user_id_inop) VALUES (:post_id, :user_id)";
-            $this->config_Class->query($sql,array(":post_id"=>$post_id, ":user_id"=>USER_ID));
-        }
-        return array("result"=>true);
     }
 
-    public function inappropriateCommentModel($comment_id){
-        $sql="select * from inoppriate where comment_id_inop=:comment_id and user_id_inop=:user_id";
-        $inopr = $this->config_Class->query($sql,array(":comment_id"=>$comment_id, ":user_id"=>USER_ID));
-        if(!isset($inopr[0]['id_inop'])) {
-            $sql="insert into inoppriate (comment_id_inop, user_id_inop) VALUES (:comment_id, :user_id)";
-            $this->config_Class->query($sql,array(":comment_id"=>$comment_id, ":user_id"=>USER_ID));
+    public function isInappropriateComment($comment_id) {
+        $sql = 'select * from post_comment_complaint where comment_id=:comment_id and user_id=:user_id';
+        $inappropriate = $this->config_Class->query($sql, array(':comment_id' => $comment_id, ':user_id' => USER_ID));
+        if (!isset($inappropriate[0]['id'])) {
+            return false;
+        } else {
+            return true;
         }
-        return array("result"=>true);
     }
 
     public function deleteCommentModel($comment_id) {
@@ -1134,7 +1117,8 @@ class Post extends Base {
             return array("result" => $delete_res);
         }
     }
-     private function removeCommentVote($id){
+
+    private function removeCommentVote($id){
 
         $res=$this->getCommentById($id);
 
@@ -1409,7 +1393,7 @@ class Post extends Base {
 
     }
 
-    public function getAllPosts($timestamp, $user_id = 0){   //API Request
+    public function getAllPosts($timestamp, $user_id = 0) {   //API Request
         $sql="select p.*, pro.*, IFNULL(pt.vote_pt, 0) as already_voted
         from post as p inner join profile as pro
         left join post_thumb as pt on pt.id_profile_pt=".USER_ID." and pt.id_post_pt=p.id_post
@@ -1417,6 +1401,7 @@ class Post extends Base {
         $this->userSQL($user_id).$this->timePostSQL($timestamp, 'date_post')." order by date_post desc limit ".$this->getLimit();
         return $this->config_Class->query($sql);
     }
+
     public function getCountUserUnreadCommentsModel($user_id = 0){   //API Request
         $sql="select sum(count_unread_comments_post) as count_unread_comments
               from post
@@ -1456,7 +1441,7 @@ class Post extends Base {
 
     private function userSQL($user_id) {
         $subquery = "";
-        if ($user_id != 0){
+        if ($user_id != 0) {
             $subquery = " AND id_profile_post = ".$user_id;
         } 
         return $subquery;

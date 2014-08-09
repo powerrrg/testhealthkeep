@@ -10,4 +10,4 @@ CREATE TABLE `post_comment_complaint` (
   `comment_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `comment_user_id_UNIQUE` (`post_id` ASC, `user_id` ASC));
+  UNIQUE INDEX `comment_user_UNIQUE` (`comment_id` ASC, `user_id` ASC));

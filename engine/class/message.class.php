@@ -536,7 +536,7 @@ class Message{
         $mail->AddAddress('info@healthkeep.com', 'HealthKeep');
         if(!$mail->Send()) {
             return false;
-        } else {var_dump($mail);
+        } else {
             return true;
         }
     }

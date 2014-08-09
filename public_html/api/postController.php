@@ -161,24 +161,14 @@ class postController extends Mobile_api {
         $this->answer = $this->_post->deleteCommentModel($comment_id);
     }
 
-    public function inappropriatePost() {
-        $post_id = $this->getReqParam('post_id');
-        $this->answer = $this->_post->inappropriatePostModel($post_id);
-    }
-
-    public function inappropriateComment() {
-        $comment_id = $this->getReqParam('comment_id');
-        $this->answer = $this->_post->inappropriateCommentModel($comment_id);
-    }
-
     private function afterPostFind() {
         if (count($this->answer) > 0) {
-            foreach ($this->answer as $key=>$post) {
+            foreach ($this->answer as $key => $post) {
                 if ($key !== 'result') {
                     $timestamp = strtotime($this->answer[$key]['date_post']);
                     $this->answer[$key]['time_ago'] = $this->config->ago($timestamp);
                     $this->answer[$key]['post_topics'] = $this->_post->getPostTopics($post['id_post']);
-                    $this->answer[$key]['inoppriate'] = $this->_post->isInoppriatePost($post['id_post']);
+                    $this->answer[$key]['inappropriate'] = $this->_post->isInappropriatePost($post['id_post']);
                 }
             }
         }
@@ -186,11 +176,11 @@ class postController extends Mobile_api {
     
     private function afterCommentFind() {
         if (count($this->answer) > 0) {
-            foreach ($this->answer as $key=>$post) {
+            foreach ($this->answer as $key => $post) {
                 if ($key !== 'result') {
                     $timestamp = strtotime($this->answer[$key]['date_pc']);
                     $this->answer[$key]['time_ago'] = $this->config->ago($timestamp);
-                    $this->answer[$key]['inoppriate'] = $this->_post->isInoppriateComment($this->answer[$key]['id_pc']);
+                    $this->answer[$key]['inappropriate'] = $this->_post->isInappropriateComment($this->answer[$key]['id_pc']);
                 }
             }
         }
