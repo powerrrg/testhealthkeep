@@ -42,6 +42,18 @@ class Post extends Base {
 
     }
 
+    public function complaint($user_id, $object_id, $type) { // API
+        if ($type === 'post') {
+            $sql = 'INSERT INTO post_complaint (user_id, post_id) VALUES (:user_id, :object_id)';
+        } elseif ($type === 'comment') {
+            $sql = 'INSERT INTO post_comment_complaint (user_id, comment_id) VALUES (:user_id, :object_id)';
+        } else {
+            return array('result' => false, 'error' => 'Field "type" must have "post" or "comment" value.');
+        }
+        $result = $this->config_Class->query($sql, array(':user_id' => $user_id, ':object_id' => $object_id));
+        return array('result' => $result);
+    }
+
     public function deleteMessageModel($message_id){
         $sql="delete from post where id_post=:message_id";
         $result = $this->config_Class->query($sql,array(":message_id" => $message_id));

@@ -6,8 +6,10 @@
  */
 class postController extends Mobile_api {
 
-    private $_post;
     private $_default_vote = 1; //Add one point to total amount post or comment points.
+    private $_post;
+    private $_notification;
+    private $_message;
 
     public function __construct($request = array()) {
         parent::__construct($request);
@@ -18,6 +20,9 @@ class postController extends Mobile_api {
 
         require_once(ENGINE_PATH.'class/notification.class.php');
         $this->_notification = new Notification();
+
+        require_once(ENGINE_PATH.'class/message.class.php');
+        $this->_message = new Message();
     }
     
     public function allPosts() {
@@ -101,14 +106,17 @@ class postController extends Mobile_api {
 
         $this->answer = $this->_post->updateCommentModel($comment_id, $comment, 'image', $video_web_url,  $is_delete_img);
     }
+
     public function setBlockConversation(){
         $to_user_id = $this->getReqParam('to_user_id');
         $this->answer = $this->_post->setBlockConversationModel($to_user_id);
     }
+
     public function setUnBlockConversation(){
         $to_user_id = $this->getReqParam('to_user_id');
         $this->answer = $this->_post->setUnBlockConversationModel($to_user_id);
     }
+
     public function postLike() {
         $this->answer = $this->_post->postLike($this->getReqParam('post_id'), $this->_default_vote);
         $ownerPost = $this->_post->getPostOwner($this->getReqParam('post_id'));
@@ -130,18 +138,39 @@ class postController extends Mobile_api {
         $this->answer = $this->_post->deletePostModel($post_id);
     }
 
+    public function complaint() {
+        $user_id = $this->getReqParam('user_id');
+        $object_id = $this->getReqParam('object_id');
+        $type = $this->getReqParam('type', false);
+
+        if ($type !== 'post' && $type !== 'comment') {
+            $this->answer = array('result' => false, 'error' => 'Field "type" must have "post" or "comment" value.');
+        } else {
+            $this->answer = $this->_post->complaint($user_id, $object_id, $type);
+
+            if ($type === 'post') {
+                $this->_message->sendAlarmEmail('Post complaint', 'The user_id = "'.$user_id.'" and the post_id = "'.$object_id.'"');
+            } elseif ($type === 'comment') {
+                $this->_message->sendAlarmEmail('Comment complaint', 'The user_id = "'.$user_id.'" and the post_id = "'.$object_id.'"');
+            }
+        }
+    }
+
     public function deleteComment() {
         $comment_id = $this->getReqParam('comment_id');
         $this->answer = $this->_post->deleteCommentModel($comment_id);
     }
+
     public function inappropriatePost() {
         $post_id = $this->getReqParam('post_id');
         $this->answer = $this->_post->inappropriatePostModel($post_id);
     }
+
     public function inappropriateComment() {
         $comment_id = $this->getReqParam('comment_id');
         $this->answer = $this->_post->inappropriateCommentModel($comment_id);
     }
+
     private function afterPostFind() {
         if (count($this->answer) > 0) {
             foreach ($this->answer as $key=>$post) {
