@@ -37,16 +37,17 @@ $profileClass = new Profile();
 
 $res = $postClass->addVote($id, $vote);
 
-require_once(ENGINE_PATH.'class/notification.class.php');
-$notification = new Notification();
-$ownerPost = $postClass->getPostOwner($id);
-if (isset($ownerPost[0]["post_owner_id"])) {
-    $notification->pushNotification($ownerPost[0]["post_owner_id"], 5, false, false, false, array('id' => $id));
-}
-
 if($res){
     $profileClass->updateBadge("supportive",USER_ID);
     $profileClass->updateBadge("karma",$resPost[0]["id_profile_post"]);
+
+    require_once(ENGINE_PATH.'class/notification.class.php');
+    $notification = new Notification();
+    $ownerPost = $postClass->getPostOwner($id);
+    if (isset($ownerPost[0]['post_owner_id'])) {
+        $notification->pushNotification($ownerPost[0]['post_owner_id'], 5, false, false, false, array('id' => $id));
+    }
+
     echo "ok";
 }else{
     echo "error";

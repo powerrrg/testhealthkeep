@@ -27,16 +27,21 @@ $postClass=new Post();
 
 $res=$postClass->addComment($id,$text);
 
-if($res){
-    $resCom=$postClass->getLastCommentFromUser(USER_ID);
+if ($res) {
+    require_once(ENGINE_PATH.'class/notification.class.php');
+    $notification = new Notification();
+    $ownerPost = $postClass->getOwnerPost($res[0]['id_post_pc']);
+    $notification->pushNotification($ownerPost, 3, true, true, true, array('id' => $id));
 
-    if($resCom["result"]){
-        $displayName=$configClass->name($resCom);
+    $resCom = $postClass->getLastCommentFromUser(USER_ID);
+
+    if ($resCom["result"]) {
+        $displayName = $configClass->name($resCom);
 
         require_once(ENGINE_PATH."html/list/comment.php");
-    }else{
+    } else {
         echo "error";
     }
-}else{
+} else {
     echo "error";
 }

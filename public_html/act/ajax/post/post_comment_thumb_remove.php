@@ -29,16 +29,17 @@ $profileClass=new Profile();
 
 $res=$postClass->removeCommentVote($id);
 
-require_once(ENGINE_PATH.'class/notification.class.php');
-$notification = new Notification();
-$ownerComment = $postClass->getCommentOwner($id);
-if (isset($ownerComment[0]["comment_owner_id"])) {
-    $notification->pushNotification($ownerComment[0]["comment_owner_id"], 4, false, false, false, array('id' => $id));
-}
-
 if($res){
     $profileClass->updateBadge("supportive",USER_ID);
     $profileClass->updateBadge("karma",$resCom[0]["id_profile_pc"]);
+
+    require_once(ENGINE_PATH.'class/notification.class.php');
+    $notification = new Notification();
+    $ownerComment = $postClass->getCommentOwner($id);
+    if (isset($ownerComment[0]['comment_owner_id'])) {
+        $notification->pushNotification($ownerComment[0]['comment_owner_id'], 4, false, false, false, array('id' => $id));
+    }
+
     echo "ok";
 }else{
     echo "error";
