@@ -1042,8 +1042,8 @@ class Post extends Base {
         return $this->config_Class->query($sql,array(":id_post"=>$id,":tot"=>$total));
 
     }
-    private function removeVote($id){
 
+    public function removeVote($id) {
         $res=$this->getById($id);
 
         if(!$res["result"]){
@@ -1117,7 +1117,7 @@ class Post extends Base {
         }
     }
 
-    private function removeCommentVote($id){
+    public function removeCommentVote($id){
 
         $res=$this->getCommentById($id);
 
@@ -1181,7 +1181,7 @@ class Post extends Base {
         return $this->config_Class->query($sql,array(":id"=>$id,":total"=>$total));
     }
 
-     private function addCommentVote($id,$vote){
+     public function addCommentVote($id,$vote){
 
         $resComment = $this->getCommentById($id);
 
@@ -1257,7 +1257,7 @@ class Post extends Base {
         return $answer;
     }
 
-    private function addVote($id,$vote){
+    public function addVote($id,$vote){
 
         $resPost=$this->getById($id);
 

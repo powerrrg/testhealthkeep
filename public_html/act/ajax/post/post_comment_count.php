@@ -4,13 +4,13 @@ require_once('../../../../engine/starter/config.php');
 onlyLogged();
 
 if(!isset($_POST["id"])){
-	go404();
+    go404();
 }
 
 $id=(int)$_POST["id"];
 
 if($id==0){
-	go404();
+    go404();
 }
 
 
@@ -20,7 +20,7 @@ $postClass=new Post();
 $res=$postClass->getCommentById($id);
 
 if($res["result"]){
-	echo $res[0]["thumb_up_pc"];
+    echo $res[0]["thumb_up_pc"];
 }else{
-	echo "error";
+    echo "error";
 }
