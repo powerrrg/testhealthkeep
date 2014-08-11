@@ -1,2 +1,2 @@
-﻿ALTER TABLE  `conversations` ADD  `blocked_u1_conv` BOOLEAN NOT NULL DEFAULT FALSE ,
-ADD  `blocked_u2_conv` BOOLEAN NOT NULL DEFAULT FALSE
+﻿ALTER TABLE `conversations` ADD COLUMN `blocked_u1_conv` TINYINT(1) NOT NULL DEFAULT 0,
+ADD COLUMN `blocked_u2_conv` TINYINT(1) NOT NULL DEFAULT 0;

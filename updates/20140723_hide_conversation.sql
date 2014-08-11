@@ -1,2 +1,2 @@
-﻿ALTER TABLE  `conversations` ADD  `hide_messages_u1` BOOLEAN NOT NULL ,
-ADD  `hide_messages_u2` BOOLEAN NOT NULL
+ALTER TABLE `conversations` ADD COLUMN `hide_messages_u1` TINYINT(1) NOT NULL,
+ADD COLUMN `hide_messages_u2` TINYINT(1) NOT NULL;
