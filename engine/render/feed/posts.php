@@ -223,7 +223,7 @@ if(isset($iMHealthTL)){
 					if($postValue["link_post"]!=""){
 					echo "<a href=\"".$postValue["link_post"]."\" target=\"_blank\">";
 					}
-					echo $postValue["title_post"];
+					// echo $postValue["title_post"];
 					if($postValue["link_post"]!=""){
 						echo "</a>";
 					}
