@@ -28,11 +28,6 @@ $postClass=new Post();
 $res=$postClass->addComment($id,$text);
 
 if ($res) {
-    require_once(ENGINE_PATH.'class/notification.class.php');
-    $notification = new Notification();
-    $ownerPost = $postClass->getOwnerPost($res[0]['id_post_pc']);
-    $notification->pushNotification($ownerPost, 3, true, true, true, array('id' => $id));
-
     $resCom = $postClass->getLastCommentFromUser(USER_ID);
 
     if ($resCom["result"]) {
