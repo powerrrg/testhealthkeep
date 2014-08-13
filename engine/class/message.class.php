@@ -443,6 +443,22 @@ class Message{
         return $this->config_Class->query($sql,array(":id"=>$to,":type"=>$type));
     }
 
+    public function doesntAllowEmailStart($to){
+        $sql = "
+        INSERT INTO notifications
+            (type_not, id_profile_not)
+        VALUES
+            ('likepost', :id1)
+          , ('likecomment', :id2)
+          , ('follower', :id3)
+          , ('newsletter', :id4)
+          , ('newuser', :id5)
+          , ('newpost', :id6)
+          , ('comcom', :id7)
+          , ('post4user', :id8)";
+        return $this->config_Class->query($sql, array(':id1' => $to,':id2' => $to,':id3' => $to,':id4' => $to,':id5' => $to,':id6' => $to,':id7' => $to,':id8' => $to,));
+    }
+
     public function getAllEmailSettings(){
         $sql="select * from notifications where id_profile_not=:id ";
         return $this->config_Class->query($sql,array(":id"=>USER_ID));
@@ -459,8 +475,6 @@ class Message{
         if($res["result"]){
             return true;
         }else if($type=='newsletter'){
-
-
             $resProfile=$this->profile_Class->getByIdComplete(USER_ID);
             if(!$resProfile["result"]){
                 return false;
