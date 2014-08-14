@@ -58,7 +58,7 @@ if($theimage<=12){
 
 require_once(ENGINE_PATH.'class/message.class.php');
 $messages = new Message();
-$messages->doesntAllowEmailStart(USER_ID);var_dump(USER_ID);
+$messages->doesntAllowEmailStart(USER_ID);
 
 require_once(ENGINE_PATH.'class/post.class.php');
 $postClass=new Post();
