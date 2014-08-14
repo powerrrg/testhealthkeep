@@ -34,18 +34,16 @@ class userController extends Mobile_api {
     }
 
     public function registration() {
-        $ar_email = explode('@', $this->getReqParam('email', false));
-        $username = $ar_email[0];
         $gender = $this->rangeValidator('gender', $this->getReqParam('gender', false));
+        $username = $this->newName($gender, explode('@', $this->getReqParam('email', false)));
         $this->answer = $this->_user->addNew(
             $username
           , $this->getReqParam('email', false)
           , $this->getReqParam('password', false)
           , $gender
         );
-        $this->newName($this->answer, $gender);
         $this->newAvatar($this->answer, $gender);
-        if (isset($this->answer['user_id']) and $this->answer['user_id']>0) {
+        if (isset($this->answer['user_id']) && $this->answer['user_id'] > 0) {
             $this->getProfileClass()->newDeviceToken($this->getParam('token'), $this->answer['user_id']);
             $this->answer = $this->getProfileClass()->getById($this->answer['user_id']);
         }
@@ -76,11 +74,10 @@ class userController extends Mobile_api {
             } else {
                 $gender = $this->rangeValidator('gender', $this->getReqParam('gender', false));
                 $this->answer = $this->_user->addNewSocial(
-                    $social_id
+                    $this->newName($gender, $social_id)
                   , $field_name
                   , $gender
                 );
-                $this->newName($this->answer, $gender);
                 $this->newAvatar($this->answer, $gender);
             }
 
@@ -142,7 +139,7 @@ class userController extends Mobile_api {
         }
     }
 
-    private function newName(array $answer, $gender) {
+    private function newName($gender, $default) {
         if($gender == 'f') {
             $file = 'woman.txt';
         } else {
@@ -151,11 +148,9 @@ class userController extends Mobile_api {
         if (file_exists(__DIR__.'/'.$file)) {
             $lines = file(__DIR__.'/'.$file);
             $names = array_rand($lines, 2);
-            $name = trim($lines[$names[0]]).'-'.trim($lines[$names[1]]);
-
-            if (isset($answer['user_id']) && $answer['user_id'] > 0) {
-                $this->getProfileClass()->newName($answer['user_id'], $name);
-            }
+            return trim($lines[$names[0]]).'-'.trim($lines[$names[1]]);
+        } else {
+            return trim($default);
         }
     }
 
