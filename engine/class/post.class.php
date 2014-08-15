@@ -54,12 +54,6 @@ class Post extends Base {
         return array('result' => $result);
     }
 
-    public function deleteMessageModel($message_id){
-        $sql="delete from post where id_post=:message_id";
-        $result = $this->config_Class->query($sql,array(":message_id" => $message_id));
-        return array("result" => $result);
-    }
-
     public function deletePostsWith($title, $description){
         if($description!=""){
         $sql="select * from post, profile
@@ -570,7 +564,6 @@ class Post extends Base {
     }
 
     public function getFeedPosts($page=1,$order='recent',$what="all"){
-
         if($order=="rank"){
             $orderby='order by p.social_rank_post desc, p.thumb_up_post desc, p.date_post desc';
             $orderGlobal="order by social_rank_post desc, thumb_up_post desc, date_post desc";
@@ -1483,8 +1476,6 @@ class Post extends Base {
             $res = $this->config_Class->query($sql,array(":id_post"=>$id_post,":id_profile"=>$id_profile));
 
         }
-
-
     }
 
     public function addNew($id, $text) {
@@ -1614,70 +1605,6 @@ class Post extends Base {
         }
     }
 
-    public function sendIsReadMessageModel($post_id){
-        $sql = "update post set read_post = 1  where id_post=:id_post";
-        $result = $this->config_Class->query($sql, array(":id_post"=>$post_id));
-        return array("result" => $result);
-    }
-
-    public function setReadMessagesModel($to_user_id){
-        $sql = "update post set read_post = 1  where id_profile_post=:to_user_id and share_with_post=:user_id";
-        $result = $this->config_Class->query($sql, array(":to_user_id"=>$to_user_id, ":user_id"=>USER_ID));
-        return array("result" => $result);
-    }
-
-    public function getIsReadMessageModel($post_id){
-        $sql = "select read_post from post where id_post=:id_post";
-        $result = $this->config_Class->query($sql, array(":id_post"=>$post_id));
-        if(isset($result[0]['read_post']) and $result[0]['read_post'] == 1){
-            return array("result" => true);
-        } else {
-            return array("result" => false);
-        }
-
-    }
-
-    public function showConversationModel($to_user_id) {
-        $sql = "update conversations set hide_messages_u1 = 0, hide_messages_u2 = 0  where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2)";
-        $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-        return $result["result"];
-    }
-    public function isHideConversationOtherUserModel($to_user_id) {
-        $sql = "select user_id1_conv, user_id2_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and (hide_messages_u1 = 1 or hide_messages_u2 = 1)) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2 and (hide_messages_u1 = 1 or hide_messages_u2 = 1))";
-        $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-        return $result["result"];
-    }
-
-    public function isHideConversationModel($to_user_id) {
-        $sql = "select user_id1_conv, user_id2_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and hide_messages_u1 = 1) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2 and hide_messages_u2 = 1)";
-        $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-        return $result["result"];
-    }
-
-    public function hideConversationModel($to_user_id) {
-        $sql = "select user_id1_conv, user_id2_conv from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2)";
-        $conv = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-        // Check current user id1 or id2 in conversation
-        if (isset($conv[0]["user_id1_conv"])) {
-            // if conversation exist
-            if ($conv[0]["user_id1_conv"] == USER_ID) {
-                $sql = "update conversations set hide_messages_u1 = 1";
-            } else {
-                $sql = "update conversations set hide_messages_u2 = 1";
-            }
-            $result = $this->config_Class->query($sql);
-        } else {
-            // if conversation not exist
-            $sql = "insert into conversations (user_id1_conv, user_id2_conv, hide_messages_u1) values (:user_id, :to_user_id, 1)";
-            $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id));
-        }
-        if ($result) {
-           return array("result" => true);
-        } else {
-           return array("result" => false);
-        }
-    }
-
     public function addNewV2Post($text = '', $img = '', $forceTopic = 0, $asMessage = 0) {
         $text=$this->config_Class->escapeOddChars($text);
         $text=$this->config_Class->processPostText($text);
@@ -1742,91 +1669,11 @@ class Post extends Base {
         }
     }
 
-    public function isBlockConversation($to_user_id) {
-        $sql = "select * from conversations where (user_id1_conv=:user_id and user_id2_conv=:to_user_id and status_conv = 'block') or (user_id2_conv=:user_id2 and user_id1_conv=:to_user_id2 and status_conv = 'block')";
-        return $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-    }
-
-    public function getAllConversations() {
-        $conversations = array();
-        $users = $this->getUsersID();
-        if (!empty($users)) {
-        $sql = "SELECT * FROM profile WHERE id_profile IN (".implode(',', $this->getUsersID()).")";
-            $conversations = $this->config_Class->query($sql);
-            foreach ($conversations as $key => $value) {
-                $conv_to_user_id = $conversations[$key]["id_profile"];
-                $conv = $this->isBlockConversation($conv_to_user_id);
-                error_reporting(E_ALL ^ E_WARNING);
-                $conversations[$key]["blocked"] = array();
-                if(isset($conv[0]["id_conv"])) {
-                    $conversations[$key]["blocked"] = "true";
-                    if ((($conv[0]["user_id1_conv"] == USER_ID) && ($conv[0]["blocked_u1_conv"] == 1)) or (($conv[0]["user_id2_conv"] == USER_ID) && ($conv[0]["blocked_u2_conv"] == 1)) ) {
-                        $conversations[$key]["blockedByMyself"] = true;
-                    } else {
-                        $conversations[$key]["blockedByMyself"] = false;
-                    }
-                } else {
-                    $conversations[$key]["blocked"] = "false";
-                }
-            }
-            return  $conversations;
-        } else {
-            return array('result' => true);
-        }
-    }
-
     public function getCountUnreadMessagesForUser($to_user_id) {
         $sql = "SELECT count(id_post) as coun_unread_mess FROM post WHERE share_with_post =:to_user_id AND read_post = 0";
         $count_unread_user_messsages = $this->config_Class->query($sql, array(":to_user_id" => $to_user_id));
         return $count_unread_user_messsages[0]["coun_unread_mess"];
     }
-
-    private function getUsersID() {
-            $sql = "SELECT id_profile_post AS user_id FROM post WHERE share_with_post=:id";
-            $res1 = $this->config_Class->query($sql, array(":id" => USER_ID));
-            $this->addUsersIDs($res1);
-            $sql = "SELECT share_with_post AS user_id FROM post WHERE share_with_post IS NOT NULL AND id_profile_post=:id";
-            $res2 = $this->config_Class->query($sql, array(":id" => USER_ID));
-            $this->addUsersIDs($res2);                
-            return $this->user_id_array;
-    }
-
-    private function getUsersID2($user_id) {
-        $sql = "SELECT id_profile_post AS user_id FROM post WHERE share_with_post=:id";
-        $res1 = $this->config_Class->query($sql, array(":id" => $user_id));
-        $this->addUsersIDs($res1);
-        $sql = "SELECT share_with_post AS user_id FROM post WHERE share_with_post IS NOT NULL AND id_profile_post=:id";
-        $res2 = $this->config_Class->query($sql, array(":id" => $user_id));
-        $this->addUsersIDs($res2);
-        return $this->user_id_array;
-    }
-
-    private function addUsersIDs($ids) {
-        $result = $ids['result'];
-        unset($ids['result']);
-        if ($result > 0) {
-            foreach ($ids as $key => $id) {
-                if (!in_array($id['user_id'], $this->user_id_array))
-                $this->user_id_array[] = $id['user_id'];
-            }
-        }
-    }
-
-    public function getConvMessages($to_user_id, $timestamp) {
-        $sql = "SELECT * FROM post LEFT JOIN profile ON post.id_profile_post=profile.id_profile
-                WHERE (id_profile_post=:user_to AND share_with_post=:user_from) OR (id_profile_post=:user_from2 AND share_with_post=:user_to2)".$this->timePostSQL($timestamp, 'date_post')." ORDER BY date_post DESC LIMIT ".$this->getLimit();
-        return $this->config_Class->query($sql, array(":user_from" => USER_ID, ":user_to" => $to_user_id,":user_from2" => USER_ID, ":user_to2" => $to_user_id));
-    }
-
-    public function getConvMessages2($user_id, $to_user_id) {
-        $sql = "SELECT * FROM post LEFT JOIN profile ON post.id_profile_post=profile.id_profile
-                WHERE (id_profile_post=:user_to AND share_with_post=:user_from) OR (id_profile_post=:user_from2 AND share_with_post=:user_to2) ORDER BY date_post DESC LIMIT ".$this->getLimit();
-        return $this->config_Class->query($sql, array(":user_from" => $user_id, ":user_to" => $to_user_id,":user_from2" => $user_id, ":user_to2" => $to_user_id));
-    }
-
-/*    private function getConditionSQL() {
-            return " (id_profile_post=:user_to AND share_with_post=:user_from) OR (id_profile_post=:user_from2 AND share_with_post=:user_to2) ";
-    }*/
 
     public function addNewV2SimplePost($title,$url,$text,$forceTopic=1){
 
@@ -1944,16 +1791,5 @@ class Post extends Base {
 
     }
 
-    public function getCountUnreadMessagesModel(){
-        $sql="select count(share_with_post) as count_unread_messages from post where share_with_post=:user and read_post = 0";
-        $result = $this->config_Class->query($sql,array(":user"=>USER_ID));
-        return $result;
-    }
-
-    public function getCountUnreadMessagesInConversationModel($from_user){
-        $sql="select count(share_with_post) as count_unread_messages from post where share_with_post=:user and id_profile_post=:from_user and read_post = 0";
-        $result = $this->config_Class->query($sql,array(":from_user"=>$from_user, ":user"=>USER_ID));
-        return $result[0]['count_unread_messages'];
-    }
 
 }
