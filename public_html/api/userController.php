@@ -74,9 +74,10 @@ class userController extends Mobile_api {
             } else {
                 $gender = $this->rangeValidator('gender', $this->getReqParam('gender', false));
                 $this->answer = $this->_user->addNewSocial(
-                    $this->newName($gender, $social_id)
+                    $social_id
                   , $field_name
                   , $gender
+                  , $this->newName($gender, $social_id)
                 );
                 $this->newAvatar($this->answer, $gender);
             }

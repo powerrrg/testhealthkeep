@@ -280,10 +280,9 @@ class User extends Base {
         return $this->config_Class->query($sql, array(':social_id' => $social_id));
     }
 
-    public function addNewSocial($social_id, $field_name, $gender) {
+    public function addNewSocial($social_id, $field_name, $gender, $username) { // api
         require_once(ENGINE_PATH.'class/profile.class.php');
         $profileClass = new Profile();
-        $username = $social_id;
         $resProfile = $profileClass->addNew($username, $gender);
 
         if (!$resProfile['result']) {
@@ -292,7 +291,7 @@ class User extends Base {
         $sql = "INSERT INTO `user`
             (`id_user`, `".$field_name."`, `email_user`, last_login_user)
             VALUES (:id, :social_id, :email, now())";
-        $res = $this->config_Class->query($sql,array(':id'=>$resProfile[0]['id_profile'], ':social_id'=>$social_id, 'email'=>$social_id));
+        $res = $this->config_Class->query($sql,array(':id'=>$resProfile[0]['id_profile'], ':social_id'=>$social_id, 'email'=>''));
         if (!$res) {
             return array('result' => false, 'error' => 'Something really odd happened. Please try again or contact us!');
         }
