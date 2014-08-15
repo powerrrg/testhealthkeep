@@ -32,7 +32,6 @@ class profileController extends Mobile_api {
             $attributes['location_profile'] =  $this->getParam('location_profile');
         }
 
-
          if (count($attributes) >= count($this->_available_attr) ) {
             if (!isset($this->answer['error'])) {
                 $this->answer = $this->_profile->updateProfile($attributes, 'image');
