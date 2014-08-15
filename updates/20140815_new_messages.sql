@@ -1,4 +1,4 @@
-DROP TABLE `new_message`;
+DROP TABLE IF EXISTS `new_message`;
 CREATE TABLE `new_message` (
   `message_id`		int(11) NOT NULL AUTO_INCREMENT,
   `conversation_id`	int(11) NOT NULL,
