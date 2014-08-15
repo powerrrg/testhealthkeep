@@ -224,7 +224,11 @@ class NewMessage extends Base {
                 (user_id1_conv=:user_id and user_id2_conv=:to_user_id) or
                 (user_id1_conv=:to_user_id2 and user_id2_conv=:user_id2)";
         $result = $this->config_Class->query($sql, array(":user_id"=>USER_ID, ":to_user_id"=>$to_user_id, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));//, ":user_id2"=>USER_ID, ":to_user_id2"=>$to_user_id));
-        return $result[0]['id_conv'];
+        if (isset($result[0]['id_conv'])) {
+            return $result[0]['id_conv'];
+        } else {
+            return false;
+        }
     }
 
     public function saveImage($image,$id) {
